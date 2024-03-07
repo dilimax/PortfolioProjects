@@ -1,3 +1,26 @@
+/*
+
+Queries used for Tableau Project
+
+*/
+
+--3
+select Location, Population, MAX(total_cases) as HighestInfectionCount, MAX((total_cases/population))*100 as PercentPopulationInfected
+from PortfolioProject..CovidDeaths
+--where location '$states$'
+Group by Location, population
+order by PercentPopulationInfected desc
+
+
+--4
+
+select Location, Population,date, MAX(total_cases) as HighestInfectionCount, MAX((total_cases/population))*100 as PercentPopulationInfected
+from PortfolioProject..CovidDeaths
+--where location '$states$'
+Group by Location, population,date
+order by PercentPopulationInfected desc
+
+
 --Looking at Total Population vs Vaccinations
 
 
@@ -67,7 +90,6 @@ order by 1,2
 
 
 -- showing continents with the highest death count per population
-
 select continent,MAX(cast(Total_deaths as int)) as TotalDeathCount
 from PortfolioProject..CovidDeaths
 where continent is not null
@@ -78,7 +100,7 @@ order by TotalDeathCount desc
 
 -- creating view to store data for later visualization
 
-create view PercentPopulationVaccinated as
+CREATE VIEW PercentPopulationVaccinated as
 SELECT 
 dea.continent, 
 dea.location, 
